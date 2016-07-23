@@ -1,18 +1,18 @@
 <?php
-require_once dirname(__FILE__).'../../abstractstorageobject.php';
-
 namespace Rt\Storage;
 
+require_once dirname(__FILE__).'/../../abstractstorageobject.php';
+
 /**
- * 
+ *
  * Класс объекта хранилища для MySQL
  * @author nay
  *
  */
 class StorageObject extends \Rt\Storage\AbstractStorageObject {
-            
+
     /**
-     * 
+     *
      * Конструктор
      * @param array $properties
      */
@@ -21,7 +21,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
         $this->_initialized = false;
         $this->initialize($properties);
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractStorageObject::disabled()
@@ -32,7 +32,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
             return $this->_properties[$propertyName]['disable'];
         return false;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractStorageObject::agregate()
@@ -75,7 +75,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
     }
 
     /**
-     * 
+     *
      * Склеивает массив в строку аргументов
      * @param array $arg
      * @return string
@@ -88,13 +88,13 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
             if($first) {
                 $first = false;
             }
-            else 
+            else
                 $ret .= ", ";
             $ret .= "'".mysqli_real_escape_string($this->_db, $el)."'";
         }
         return $ret;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractStorageObject::get()
@@ -120,7 +120,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
         }
         return false;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractStorageObject::set()
@@ -149,7 +149,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
         }
         return false;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractStorageObject::setAuto()
@@ -179,12 +179,12 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
         }
         return false;
     }
-    
+
     /**
      * (non-PHPdoc)
-     * @see Rt\Storage.AbstractStorageObject::clear()
+     * @see Rt\Storage.AbstractStorageObject::blank()
      */
-    public function clear($propertyName, $index = 0)
+    public function blank($propertyName, $index = 0)
     {
         if(isset($this->_properties[$propertyName]) && isset($this->_properties[$propertyName]['values'][$index])) {
             unset($this->_properties[$propertyName]['values'][$index]);
@@ -192,7 +192,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
         }
         return false;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractStorageObject::rget()
@@ -219,7 +219,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
         }
         return false;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractStorageObject::initialize()
@@ -248,7 +248,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
             $this->_initialized = true;
         }
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractStorageObject::disable()
@@ -259,7 +259,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
             $this->_properties[$propertyName]['disable'] = true;
         }
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractStorageObject::enable()
@@ -301,7 +301,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
         if(isset($this->_properties[$propertyName]))
             $this->_properties[$propertyName]['disable'] = false;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractStorageObject:Enter description here ...:fields()
@@ -325,7 +325,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
         }
         return $ret;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractStorageObject::table()
@@ -334,7 +334,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
     {
         return $this->_table;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractStorageObject::toSet()
@@ -360,7 +360,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
                 "realName" => $value['realName'],
                 "values" => array(
                     array(
-                        "exp" => "=", 
+                        "exp" => "=",
                         "val" => NULL,
                     )
                 ),
@@ -377,7 +377,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
     {
         $propertiesList = array();
         $i = 0;
-        
+
         foreach($this->_properties as $key => $val) {
             $propertiesList[$i] = $key;
             $i++;
@@ -386,7 +386,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
     }
 
     /**
-     * 
+     *
      * DBMS connection id
      * @var unknown_type
      */

@@ -1,22 +1,22 @@
 <?php
+namespace Rt\Storage;
+
 require_once dirname(__FILE__).'../../abstractdriver.php';
-require_once dirname(__FILE__).'../../abstractstorageobject.php';
+require_once dirname(__FILE__).'/storageobject.php';
 require_once dirname(__FILE__).'/where.php';
 require_once dirname(__FILE__).'/group.php';
 require_once dirname(__FILE__).'/order.php';
 require_once dirname(__FILE__).'/join.php';
 
-namespace Rt\Storage;
-    
 /**
- * 
+ *
  * Класс драйвера PostgreSQL
  * @author nay
  *
  */
 class Driver extends \Rt\Storage\AbstractDriver {
     /**
-     * 
+     *
      * Конструктор
      * @param array $args - список аргументов для инициализации объекта
      */
@@ -27,7 +27,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
         $this->_connection = 0;
         $this->initialize($args);
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::__destruct()
@@ -41,18 +41,18 @@ class Driver extends \Rt\Storage\AbstractDriver {
             @pg_close($this->_connection);
         }*/
     }
-    
+
     /**
-     * 
+     *
      * Возвращает ссылку на идентификатор соединения с СУБД
-     * 
+     *
      * @return unknown_type
      */
     public function &connection()
     {
         return $this->_connection;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::initialize()
@@ -66,7 +66,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
             $this->connect();
         }
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::initialized()
@@ -75,13 +75,13 @@ class Driver extends \Rt\Storage\AbstractDriver {
     {
         return $this->_initialized;
     }
-            
+
     public function select($outType, $subquery, \Rt\Storage\QueryJoin &$from, \Rt\Storage\QueryWhere &$where = NULL, \Rt\Storage\QueryGroup &$group = NULL, \Rt\Storage\QueryOrder &$order = NULL, $limit = NULL, $start = NULL)
     {
         $query = "SELECT ";
         if($subquery)
             $query .= $from->getFields(true);
-        else 
+        else
             $query .= $from->getFields();
         $query .= " FROM ".$from->getLine()." ";
         if($where != NULL)
@@ -122,7 +122,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
             return false;
         return $answer;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::insert()
@@ -148,7 +148,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
         }
         return false;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::update()
@@ -186,7 +186,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
         }
         return false;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::delete()
@@ -229,7 +229,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
     {
         $some = new \Rt\Storage\QueryGroup($val);
         return $some;
-    } 
+    }
 
     /**
      * (non-PHPdoc)
@@ -261,7 +261,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
     }
 
     /**
-     * 
+     *
      * Склеивает массив в строку аргументов
      * @param string $separator
      * @param array $arg
@@ -275,15 +275,15 @@ class Driver extends \Rt\Storage\AbstractDriver {
             if($first) {
                 $first = false;
             }
-            else 
+            else
                 $ret .= $separator." ";
             $ret .= "E'".pg_escape_string($this->_connection, $el)."'";
         }
         return $ret;
     }
-    
+
     /**
-     * 
+     *
      * Соединение с сервером PostgreSQL
      */
     private function connect()
@@ -297,14 +297,14 @@ class Driver extends \Rt\Storage\AbstractDriver {
     }
 
     /**
-     * 
+     *
      * Строка соединения PostgreSQL
      * @var unknown_type
      */
     private $_connectLine = NULL;
-    
+
     /**
-     * 
+     *
      * Идентификатор соединения с PostgreSQL
      * @var int
      */

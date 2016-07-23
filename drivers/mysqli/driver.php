@@ -1,22 +1,23 @@
 <?php
-require_once dirname(__FILE__).'../../abstractdriver.php';
-require_once dirname(__FILE__).'../../abstractstorageobject.php';
+
+namespace Rt\Storage;
+
+require_once dirname(__FILE__).'/../../abstractdriver.php';
+require_once dirname(__FILE__).'/storageobject.php';
 require_once dirname(__FILE__).'/where.php';
 require_once dirname(__FILE__).'/group.php';
 require_once dirname(__FILE__).'/order.php';
 require_once dirname(__FILE__).'/join.php';
 
-namespace Rt\Storage;
-
 /**
- * 
+ *
  * MySQL driver class
  * @author nay
  *
  */
 class Driver extends \Rt\Storage\AbstractDriver {
     /**
-     * 
+     *
      * Конструктор
      * @param array $args - список аргументов для инициализации объекта
      */
@@ -25,7 +26,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
         $this-> initialized = false;
         $this->_debug = false;
         $this->_connection = 0;
-        $this->initialize($user, $args);
+        $this->initialize($args);
     }
 
     /**
@@ -39,21 +40,21 @@ class Driver extends \Rt\Storage\AbstractDriver {
     }
 
     /**
-     * 
+     *
      * Возвращает ссылку на идентификатор соединения с СУБД
-     * 
+     *
      * @return unknown_type
      */
     public function &connection()
     {
         return $this->_connection;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::initialize()
      */
-    public function initialize(array $user, array $args)
+    public function initialize(array $args)
     {
         if(!$this->_initialized) {
             $this->_host = $args['host'];
@@ -65,7 +66,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
             $this->connect();
         }
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::isInitialized()
@@ -74,7 +75,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
     {
         return $this->_initialized;
     }
-            
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::select()
@@ -84,7 +85,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
         $query = "SELECT ";
         if($subquery)
             $query .= $from->getFields(true);
-        else 
+        else
             $query .= $from->getFields();
         $query .= " FROM ".$from->getLine()." ";
         if($where != NULL)
@@ -125,7 +126,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
             return false;
         return $answer;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::insert()
@@ -149,7 +150,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
             return @mysqli_insert_id($this->_connection);
         return false;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::update()
@@ -187,7 +188,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
         }
         return false;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::delete()
@@ -230,7 +231,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
     {
         $some = new \Rt\Storage\QueryGroup($val);
         return $some;
-    } 
+    }
 
     /**
      * (non-PHPdoc)
@@ -262,7 +263,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
     }
 
     /**
-     * 
+     *
      * Соединение с сервером MySQL
      */
     private function connect()
@@ -279,35 +280,35 @@ class Driver extends \Rt\Storage\AbstractDriver {
     }
 
     /**
-     * 
+     *
      * Адрес сервера MySQL
      * @var string
      */
     private $_host;
-    
+
     /**
-     * 
+     *
      * Имя базы данных MySQL
      * @var string
      */
     private $_database;
-    
+
     /**
-     * 
+     *
      * Имя пользователя MySQL
      * @var string
      */
     private $_username;
-    
+
     /**
-     * 
+     *
      * Пароль MySQL
      * @var string
      */
     private $_password;
-    
+
     /**
-     * 
+     *
      * Идентификатор соединения с MySQL
      * @var int
      */
