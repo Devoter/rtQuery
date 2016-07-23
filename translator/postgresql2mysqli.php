@@ -1,7 +1,6 @@
 <?php
-chdir("..");
-require_once "translator/translator.php";
-require "translator/mysqli.php";
-require "translator/postgresql.php";
+require_once dirname(__FILE__)."/../translator/translator.php";
+require dirname(__FILE__)."/../translator/mysqli.php";
+require dirname(__FILE__)."/../translator/postgresql.php";
+
 \Rt\Translator\translate($postgresql, $mysql);
-?>

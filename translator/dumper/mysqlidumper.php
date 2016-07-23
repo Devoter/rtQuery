@@ -195,4 +195,3 @@ if(isset($argv[4]) && isset($argv[5])) {
 	fwrite($file, $postgresql);
 	fclose($file);
 }
-?>
