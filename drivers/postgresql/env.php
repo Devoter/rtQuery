@@ -1,4 +1,4 @@
 <?php
 $storage = array();
-$storage['connectLine'] = "host=localhost dbname=sdist user=rtgc password=rtgc"; // строка подключения postgre
-$storage['prefix'] = ""; // префикс таблиц  БД
+$storage['connectLine'] = "host=localhost dbname=rtquerytest user=rtquery password=rtquery"; // PostgreSQL connection line
+$storage['prefix'] = ""; // table prefix

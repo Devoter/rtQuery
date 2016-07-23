@@ -1,10 +1,19 @@
 <?php
+/*
+ * Prepare MySQL:
+ *
+ * CREATE DATABASE rtquerytest;
+ * GRANT ALL PRIVILEGES ON rtquerytest.* TO rtquery@localhost IDENTIFIED BY 'rtquery';
+ * CREATE TABLE `config` (`id` INT(11) NOT NULL AUTO_INCREMENT, `val` VARCHAR(500), `param` VARCHAR(255), PRIMARY KEY(`id`));
+ * INSERT INTO `config` (`val`, `param`) VALUES ('rtQuery', 'libname');
+ */
+
 $storageType = "mysqli";
 
-require_once dirname(__FILE__)."/drivers/".$storageType."/driver.php";
-require_once dirname(__FILE__)."/drivers/".$storageType."/env.php";
+require_once dirname(__FILE__)."/drivers/".$storageType."/driver.php"; // include storage driver class
+require_once dirname(__FILE__)."/drivers/".$storageType."/env.php"; // include storage environment
 
-require_once dirname(__FILE__)."/classes/config/".$storageType.".php";
+require_once dirname(__FILE__)."/classes/config/".$storageType.".php"; // include table description class
 
 use \Rt\Storage\Tables;
 use \Rt\Storage\Driver;
@@ -20,8 +29,8 @@ $config = new StorageObject(Tables\config($db));
 $config->set("param", "=", "libname");
 
 $result = $db->select(
-      true,
-      false,
+      true, // return as map
+      false, // do not return a subquery line
       $db->noJoin($config),
       $db->where($config->get("param"))
     );
@@ -63,4 +72,4 @@ if($result === false) {
     exit();
 }
 
-echo ("Library version: ".$result[0]['Config_val']."\n");
+echo ("Library version: ".$result[0]['Config_val']."\n"); // Config is a 'className' field of 'classes/config/mysqli.php'
