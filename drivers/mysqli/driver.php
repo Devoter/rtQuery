@@ -18,8 +18,8 @@ require_once dirname(__FILE__).'/join.php';
 class Driver extends \Rt\Storage\AbstractDriver {
     /**
      *
-     * Конструктор
-     * @param array $args - список аргументов для инициализации объекта
+     * Constructor
+     * @param array $args - the list of arguments
      */
     public function __construct(array $args = array())
     {
@@ -41,7 +41,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
 
     /**
      *
-     * Возвращает ссылку на идентификатор соединения с СУБД
+     * Returns the MySQL connection id
      *
      * @return unknown_type
      */
@@ -237,9 +237,9 @@ class Driver extends \Rt\Storage\AbstractDriver {
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::order()
      */
-    public function &order($val, $order = true, $agregate = NULL)
+    public function &order($val, $order = true, $aggregate = NULL)
     {
-        $some = new \Rt\Storage\QueryOrder($val, $order, $agregate);
+        $some = new \Rt\Storage\QueryOrder($val, $order, $aggregate);
         return $some;
     }
 
@@ -264,7 +264,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
 
     /**
      *
-     * Соединение с сервером MySQL
+     * Connects to MySQL
      */
     private function connect()
     {
@@ -281,35 +281,35 @@ class Driver extends \Rt\Storage\AbstractDriver {
 
     /**
      *
-     * Адрес сервера MySQL
+     * MySQL server address
      * @var string
      */
     private $_host;
 
     /**
      *
-     * Имя базы данных MySQL
+     * MySQL database name
      * @var string
      */
     private $_database;
 
     /**
      *
-     * Имя пользователя MySQL
+     * MySQL user
      * @var string
      */
     private $_username;
 
     /**
      *
-     * Пароль MySQL
+     * MySQL password
      * @var string
      */
     private $_password;
 
     /**
      *
-     * Идентификатор соединения с MySQL
+     * MySQL connection id
      * @var int
      */
     private $_connection;

@@ -5,7 +5,7 @@ require_once dirname(__FILE__).'/../../abstractstorageobject.php';
 
 /**
  *
- * Класс объекта хранилища для MySQL
+ * MySQL storage object class
  * @author nay
  *
  */
@@ -13,7 +13,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
 
     /**
      *
-     * Конструктор
+     * Constructor
      * @param array $properties
      */
     public function __construct(array &$properties = array())
@@ -76,7 +76,7 @@ class StorageObject extends \Rt\Storage\AbstractStorageObject {
 
     /**
      *
-     * Склеивает массив в строку аргументов
+     * Bounds an array of arguments in a row
      * @param array $arg
      * @return string
      */

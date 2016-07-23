@@ -10,15 +10,15 @@ require_once dirname(__FILE__).'/join.php';
 
 /**
  *
- * Класс драйвера PostgreSQL
+ * PostgreSQL driver class
  * @author nay
  *
  */
 class Driver extends \Rt\Storage\AbstractDriver {
     /**
      *
-     * Конструктор
-     * @param array $args - список аргументов для инициализации объекта
+     * Constructor
+     * @param array $args - the list of arguments
      */
     public function __construct(array $args = array())
     {
@@ -34,17 +34,11 @@ class Driver extends \Rt\Storage\AbstractDriver {
      */
     public function __destruct()
     {
-        /*
-         * закрытие соединения не производится, так как postgresql
-         * выдает один и тот же идентификатор на все соединения
-         * if($this->_initialized) {
-            @pg_close($this->_connection);
-        }*/
     }
 
     /**
      *
-     * Возвращает ссылку на идентификатор соединения с СУБД
+     * Returns the PostgreSQL connection id
      *
      * @return unknown_type
      */
@@ -76,6 +70,10 @@ class Driver extends \Rt\Storage\AbstractDriver {
         return $this->_initialized;
     }
 
+    /**
+     * (non-PHPdoc)
+     * @see Rt\Storage.AbstractDriver::select()
+     */
     public function select($outType, $subquery, \Rt\Storage\QueryJoin &$from, \Rt\Storage\QueryWhere &$where = NULL, \Rt\Storage\QueryGroup &$group = NULL, \Rt\Storage\QueryOrder &$order = NULL, $limit = NULL, $start = NULL)
     {
         $query = "SELECT ";
@@ -235,9 +233,9 @@ class Driver extends \Rt\Storage\AbstractDriver {
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::order()
      */
-    public function &order($val, $order = true, $agregate = NULL)
+    public function &order($val, $order = true, $aggregate = NULL)
     {
-        $some = new \Rt\Storage\QueryOrder($val, $order, $agregate);
+        $some = new \Rt\Storage\QueryOrder($val, $order, $aggregate);
         return $some;
     }
 
@@ -262,9 +260,9 @@ class Driver extends \Rt\Storage\AbstractDriver {
 
     /**
      *
-     * Склеивает массив в строку аргументов
-     * @param string $separator
-     * @param array $arg
+     * Bounds an array of arguments in a row
+     * @param string $separator - separator
+     * @param array $arg - array of arguments
      * @return string
      */
     private function arrimplode($separator, array $arg)
@@ -284,7 +282,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
 
     /**
      *
-     * Соединение с сервером PostgreSQL
+     * Connects to PostgreSQL
      */
     private function connect()
     {
@@ -298,14 +296,14 @@ class Driver extends \Rt\Storage\AbstractDriver {
 
     /**
      *
-     * Строка соединения PostgreSQL
+     * PostgreSQL connection string
      * @var unknown_type
      */
     private $_connectLine = NULL;
 
     /**
      *
-     * Идентификатор соединения с PostgreSQL
+     * PostgreSQL connection id
      * @var int
      */
     private $_connection;

@@ -2,20 +2,20 @@
 namespace Rt\Storage;
 
 class QueryOrder {
-    
-    public function __construct($val, $order = true, $agregate = NULL)
+
+    public function __construct($val, $order = true, $aggregate = NULL)
     {
-        $agr = $this->checkAgregate($agregate);
+        $agr = $this->checkAggregate($aggregate);
         if($agr != NULL)
             $rval = $agr."(".$val.")";
         else
             $rval = $val;
         $this->_query = " ".$rval." ".($order ? "ASC" : "DESC");
     }
-    
-    public function &order($val, $order = true, $agregate = NULL)
+
+    public function &order($val, $order = true, $aggregate = NULL)
     {
-        $agr = $this->checkAgregate($agregate);
+        $agr = $this->checkAggregate($aggregate);
         if($agr != NULL)
             $rval = $agr."(".$val.")";
         else
@@ -23,16 +23,16 @@ class QueryOrder {
         $this->_query .= ", ".$rval." ".($order ? "ASC" : "DESC");
         return $this;
     }
-    
+
     public function getQuery()
     {
         return $this->_query;
     }
 
-    protected function checkAgregate($agregate)
+    private function checkAggregate($aggregate)
     {
         $agr = NULL;
-        switch($agregate) {
+        switch($aggregate) {
             case "MIN":
                 $agr = "MIN";
                 break;
@@ -46,5 +46,5 @@ class QueryOrder {
         return $agr;
     }
 
-    protected $_query;
+    private $_query;
 }

@@ -3,23 +3,23 @@ namespace Rt\Storage;
 
 /**
  *
- * Абстрактный класс объектов БД, используется для реализации
- * классов объектов БД для работы с конкретными БД/СУБД
+ * Abstract storage object class, should be inherited
+ * with the current storage object class
  * @author nay
  *
  */
 abstract class AbstractStorageObject {
     /**
      *
-     * Конструктор
+     * Constructor
      * @param array $properties
      */
     abstract public function __construct(array &$properties = array());
 
     /**
      *
-     * Инициализирован ли объект
-     * @return bool - true - если инициализирован, false - в противном случае
+     * Returns an object state
+     * @return bool - true if object has been initialized, false - if not
      */
     public function initialized()
     {
@@ -28,154 +28,151 @@ abstract class AbstractStorageObject {
 
     /**
      *
-     * Не возвращать указанное свойство при запросе
-     * @param string $propertyName - имя поля
-     * @return bool - true - если возвращать, false - в противном случае
+     * Excludes the property from selection result
+     * @param string $propertyName - property name
+     * @return bool - true - return, false - do not return
      */
     abstract public function disabled($propertyName);
 
     /**
      *
-     * Задать агрегатную функцию для свойства
+     * Sets the property aggregate function from list:
+     * MIN, MAX, AVG, excludes the aggregate function when
+     * the second argument is NULL
      *
-     * Задает агрегатную функцию для свойства из списка:
-     * MIN, MAX, AVG, в случае, если второй параметр не задан
-     * - удаляет наложенную функцию
-     *
-     * @param string $propertyName имя свойста
-     * @param string $func имя агрегатной функции
+     * @param string $propertyName property name
+     * @param string $func aggregate function name
      */
     abstract public function agregate($propertyName, $func = NULL);
 
     /**
      *
-     * Сдвигает индексы значений после удаления
-     * @param string $propertyName - имя свойства
+     * Updates the array indexes after the removal of the element
+     * @param string $propertyName - property name
      */
     abstract public function compressArray($propertyName);
 
     /**
      *
-     * Вернуть свойство
-     * @param string $propertyName - имя свойства
-     * @param int $index - адрес в массиве (по умолчанию - 0)
-     * @param bool $queryLine - возвращать как часть строки запроса (по умолчанию)
-     * @return array or unknown_type - массив с данными или часть строки запроса
+     * Returns the property
+     * @param string $propertyName - property name
+     * @param int $index - array index (default - 0)
+     * @param bool $queryLine - return as query line (default - true)
+     * @return array or unknown_type - data array or a part of thq query line
      */
     abstract public function get($propertyName, $index = 0, $queryLine = true);
 
     /**
      *
-     * Задает значение свойства
-     * @param string $propertyName - имя свойства
-     * @param string $expression - выражение, может принимать следубщие значения:
-     * "=", "<>", ">", "<", ">=", "<=", "IS", "IS NOT", "IN", "NOT IN", "LIKE" и "REGEXP" - подробнее описание читайте
-     * в документации
-     * @param unknown_type $value - значение
-     * @param int index - адрес в массиве (по умолчанию - 0)
+     * Sets the property value
+     * @param string $propertyName - property name
+     * @param string $expression - an expression from this list:
+     * "=", "<>", ">", "<", ">=", "<=", "IS", "IS NOT", "IN", "NOT IN", "LIKE" и "REGEXP"
+     * @param unknown_type $value - value
+     * @param int index - array index (default - 0)
      */
     abstract public function set($propertyName, $expression, $value, $index = 0);
 
     /**
      *
-     * Очищает указанное значение заданного свойства
-     * @param string $propertyName - имя свойства
-     * @param int $index - адрес в массиве (по умолчанию - 0)
+     * Clears target property at index
+     * @param string $propertyName - property name
+     * @param int $index - array index (default - 0)
      */
     abstract public function blank($propertyName, $index = 0);
 
     /**
      *
-     * Задает значение свойства на основании массива, возвращаемого методом get()
-     * @param string $propertyName - имя свойства
-     * @param array $data - массив с данными
-     * @param int $index - адрес в массиве (по умолчанию - 0)
+     * Sets the property value from the array returned with the get() method
+     * @param string $propertyName - property name
+     * @param array $data - data array
+     * @param int $index - array index (default - 0)
      */
     abstract public function setAuto($propertyName, array $data, $index = 0);
 
     /**
      *
-     * Возвращает настоящее имя поля (в зависимости от типа БД/СУБД может отличаться)
+     * Returns real field name (result can be different in MySQL and PostgreSQL)
      *
-     * Если необходимо преобразовать к числовому или бинарному типу данных - необходимо
-     * ввести дополнительный параметр typcast - "int" или "bin"
+     * If you have to cast to digital or binary datatype you should
+     * set the typecast parameter as "int" or "bin"
      *
-     * @param string $propertyName - имя свойства
-     * @param mixed $typecast - преобразовать в int или bin
-     * @return string - имя поля
+     * @param string $propertyName - property name
+     * @param mixed $typecast - cast to int or bin
+     * @return string - field name
      */
     abstract public function rget($propertyName, $typecast = false);
 
     /**
      *
-     * Инициализация объекта
-     * @param array $properties - массив с данными для инициализации
+     * Object initializer
+     * @param array $properties - the list of arguments
      */
     abstract public function initialize(array &$properties = array());
 
     /**
      *
-     * Не возвращать свойство при выборке
-     * @param string $propertyName - имя свойства
+     * Don not return property from selection
+     * @param string $propertyName - property name
      */
     abstract public function disable($propertyName);
 
     /**
      *
-     * Возвращать свойство при выборке
-     * @param string $propertyName - имя свойства
+     * Return property from selection
+     * @param string $propertyName - property name
      */
     abstract public function enable($propertyName);
 
     /**
      *
-     * Вернуть свойства объекта для выборки
-     * @return unknown_type - часть запроса
+     * Returns properties for selection
+     * @return unknown_type - query part
      */
     abstract public function fields();
 
     /**
      *
-     * Возвращает имя таблицы (зависит от типа БД/СУБД)
-     * @return unknown_type - имя таблицы
+     * Return DB table name
+     * @return unknown_type
      */
     abstract public function table();
 
     /**
      *
-     * Возвращает массив с данными для записи в БД
+     * Returns an array with data prepared for DBMS
      * @return array
      */
     abstract public function toSet();
 
     /**
      *
-     * Очищает значения полей
+     * Reset all settings
      */
     abstract public function clear();
 
     /**
      *
-     * Не возвращать при выборке ни одного свойства
+     * Do not return any property in selection
      */
     abstract public function disableAll();
 
     /**
      *
-     * Возвращать при выборке все свойства
+     * Enable all properties in selection
      */
     abstract public function enableAll();
 
     /**
      *
-     * Возвращать при выборке только свойство с указанными именем
-     * @param string $propertyName - имя свойства
+     * Enable just the one property in selection
+     * @param string $propertyName - property name
      */
     abstract public function enableOnly($propertyName);
 
     /**
      *
-     * Возвращает имя класса
+     * Returns the classname (virtual table name)
      * @return string
      */
     public function className()
@@ -185,35 +182,35 @@ abstract class AbstractStorageObject {
 
     /**
      *
-     * Возвращает массив с именами полей
+     * Returns an array with the names of the fields
      * @return array
      */
     abstract public function getList();
 
-        /**
+    /**
      *
-     * Инициализирован ли объект
+     * Init flag
      * @var bool
      */
     protected $_initialized;
 
     /**
      *
-     * Массив свойств
+     * Array of properties
      * @var array
      */
     protected $_properties;
 
     /**
      *
-     * Имя таблицы
+     * Table name
      * @var unknown_type
      */
     protected $_table;
 
     /**
      *
-     * Имя класса (или виртуальное имя таблицы)
+     * Classname (virtual table name)
      * @var string
      */
     protected $_className;
