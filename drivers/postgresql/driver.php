@@ -57,7 +57,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
             $this->_connectLine = $args['connectLine'];
             $this->_prefix = $args['prefix'];
             $this->_connection = 0;
-            $this->connect();
+            $this->_connect();
         }
     }
 
@@ -260,31 +260,9 @@ class Driver extends \Rt\Storage\AbstractDriver {
 
     /**
      *
-     * Bounds an array of arguments in a row
-     * @param string $separator - separator
-     * @param array $arg - array of arguments
-     * @return string
-     */
-    private function arrimplode($separator, array $arg)
-    {
-        $ret = "";
-        $first = true;
-        foreach($arg as $el) {
-            if($first) {
-                $first = false;
-            }
-            else
-                $ret .= $separator." ";
-            $ret .= "E'".pg_escape_string($this->_connection, $el)."'";
-        }
-        return $ret;
-    }
-
-    /**
-     *
      * Connects to PostgreSQL
      */
-    private function connect()
+    private function _connect()
     {
         if(isset($this->_connectLine)) {
             if($this->_connection = pg_connect($this->_connectLine))

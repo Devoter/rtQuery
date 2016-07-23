@@ -63,7 +63,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
             $this->_password = $args['password'];
             $this->prefix = $args['prefix'];
             $this->_connection = 0;
-            $this->connect();
+            $this->_connect();
         }
     }
 
@@ -266,7 +266,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
      *
      * Connects to MySQL
      */
-    private function connect()
+    private function _connect()
     {
         if(isset($this->_host) && isset($this->_database) &&
             isset($this->_username) && isset($this->_password)) {

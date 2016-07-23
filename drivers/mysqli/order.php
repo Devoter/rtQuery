@@ -5,7 +5,7 @@ class QueryOrder {
 
     public function __construct($val, $order = true, $aggregate = NULL)
     {
-        $agr = $this->checkAggregate($aggregate);
+        $agr = $this->_checkAggregate($aggregate);
         if($agr != NULL)
             $rval = $agr."(".$val.")";
         else
@@ -15,7 +15,7 @@ class QueryOrder {
 
     public function &order($val, $order = true, $aggregate = NULL)
     {
-        $agr = $this->checkAggregate($aggregate);
+        $agr = $this->_checkAggregate($aggregate);
         if($agr != NULL)
             $rval = $agr."(".$val.")";
         else
@@ -29,7 +29,7 @@ class QueryOrder {
         return $this->_query;
     }
 
-    private function checkAggregate($aggregate)
+    private function _checkAggregate($aggregate)
     {
         $agr = NULL;
         switch($aggregate) {
