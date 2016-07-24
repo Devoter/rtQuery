@@ -95,9 +95,9 @@ class Driver extends \Rt\Storage\AbstractDriver {
         if($order != NULL)
             $query .= " ORDER BY ".$order->getQuery();
         if(($start != NULL) && ($limit != NULL))
-            $query .= " LIMIT ".$start.", ".$limit;
+            $query .= " LIMIT ".intval($start).", ".intval($limit);
         elseif($limit != NULL)
-            $query .= " LIMIT ".$limit;
+            $query .= " LIMIT ".intval($limit);
         $answer = array();
         if($this->_debug)
             echo "<span style=\"font-family: monospace; font-size: 10pt;\">".htmlentities($query, ENT_QUOTES, "UTF-8")."</span><br />\n";
@@ -177,9 +177,9 @@ class Driver extends \Rt\Storage\AbstractDriver {
         if($order != NULL)
             $query .= " ORDER BY ".$order->getQuery();
         if(($start != NULL) && ($limit != NULL))
-            $query .= " LIMIT ".$start.", ".$limit;
+            $query .= " LIMIT ".intval($start).", ".intval($limit);
         elseif($limit != NULL)
-            $query .= " LIMIT ".$limit;
+            $query .= " LIMIT ".intval($limit);
         if($this->_debug)
             echo "<span style=\"font-family: monospace; font-size: 10pt;\">".htmlentities($query, ENT_QUOTES, "UTF-8")."</span><br />\n";
         if(($result = @mysqli_query($this->_connection, $query)) !== false) {
@@ -201,9 +201,9 @@ class Driver extends \Rt\Storage\AbstractDriver {
         if($order != NULL)
             $query .= " ORDER BY ".$order->getQuery();
         if(($start != NULL) && ($limit != NULL))
-            $query .= " LIMIT ".$start.", ".$limit;
+            $query .= " LIMIT ".intval($start).", ".intval($limit);
         elseif($limit != NULL)
-            $query .= " LIMIT ".$limit;
+            $query .= " LIMIT ".intval($limit);
         if($this->_debug)
             echo "<span style=\"font-family: monospace; font-size: 10pt;\">".htmlentities($query, ENT_QUOTES, "UTF-8")."</span><br />\n";
         if(($result = @mysqli_query($this->_connection, $query)) !== false) {

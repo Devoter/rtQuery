@@ -89,9 +89,9 @@ class Driver extends \Rt\Storage\AbstractDriver {
         if($order != NULL)
             $query .= " ORDER BY ".$order->getQuery();
         if(($start != NULL) && ($limit != NULL))
-            $query .= " LIMIT '".$limit."' OFFSET '".$start."'";
+            $query .= " LIMIT '".intval($limit)."' OFFSET '".intval($start)."'";
         elseif($limit != NULL)
-            $query .= " LIMIT '".$limit."'";
+            $query .= " LIMIT '".intval($limit)."'";
         $answer = array();
         if($this->_debug)
             echo "<span style=\"font-family: monospace; font-size: 10pt;\">".htmlentities($query, ENT_QUOTES, "UTF-8")."</span><br />\n";
@@ -173,9 +173,9 @@ class Driver extends \Rt\Storage\AbstractDriver {
         if($order != NULL)
             $query .= " ORDER BY ".$order->getQuery();
         if(($start != NULL) && ($limit != NULL))
-            $query .= " LIMIT '".$limit."' OFFSET '".$start."'";
+            $query .= " LIMIT '".intval($limit)."' OFFSET '".intval($start)."'";
         elseif($limit != NULL)
-            $query .= " LIMIT '".$limit."'";
+            $query .= " LIMIT '".intval($limit)."'";
         if($this->_debug)
             echo "<span style=\"font-family: monospace; font-size: 10pt;\">".htmlentities($query, ENT_QUOTES, "UTF-8")."</span><br />\n";
         if(($result = @pg_query($this->_connection, $query)) !== false) {
@@ -197,9 +197,9 @@ class Driver extends \Rt\Storage\AbstractDriver {
         if($order != NULL)
             $query .= " ORDER BY ".$order->getQuery();
         if(($start != NULL) && ($limit != NULL))
-            $query .= " LIMIT '".$limit."' OFFSET '".$start."'";
+            $query .= " LIMIT '".intval($limit)."' OFFSET '".intval($start)."'";
         elseif($limit != NULL)
-            $query .= " LIMIT '".$limit."'";
+            $query .= " LIMIT '".intval($limit)."'";
         if($this->_debug)
             echo "<span style=\"font-family: monospace; font-size: 10pt;\">".htmlentities($query, ENT_QUOTES, "UTF-8")."</span><br />\n";
         if(($result = @pg_query($this->_connection, $query)) !== false) {
