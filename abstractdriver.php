@@ -83,7 +83,7 @@ abstract class AbstractDriver {
      * @return array or string or bool - returns an array if correct, false if error,
      * string if $subquery == true
      */
-    abstract public function select($outType, $subquery, \Rt\Storage\QueryJoin &$from, \Rt\Storage\QueryWhere &$where = NULL, \Rt\Storage\QueryGroup &$group = NULL, \Rt\Storage\QueryOrder &$order = NULL, $limit = NULL, $start = NULL);
+    abstract public function select($outType, $subquery, \Rt\Storage\QueryJoin $from, \Rt\Storage\QueryWhere $where = NULL, \Rt\Storage\QueryGroup $group = NULL, \Rt\Storage\QueryOrder $order = NULL, $limit = NULL, $start = NULL);
 
     /**
      *
@@ -91,7 +91,7 @@ abstract class AbstractDriver {
      * @param \Rt\Storage\StorageObject $table - target table
      * @return bool - returns false if error, true if ok
      */
-    abstract public function insert(\Rt\Storage\StorageObject &$table);
+    abstract public function insert(\Rt\Storage\StorageObject $table);
 
     /**
      *
@@ -103,7 +103,7 @@ abstract class AbstractDriver {
      * @param int $start - start row shift
      * @return bool - returns false if error, true if ok
      */
-    abstract public function update(\Rt\Storage\StorageObject &$table, \Rt\Storage\QueryWhere &$where = NULL, \Rt\Storage\QueryOrder &$order = NULL, $limit = NULL, $start = NULL);
+    abstract public function update(\Rt\Storage\StorageObject $table, \Rt\Storage\QueryWhere $where = NULL, \Rt\Storage\QueryOrder $order = NULL, $limit = NULL, $start = NULL);
 
     /**
      *
@@ -115,7 +115,7 @@ abstract class AbstractDriver {
      * @param int $start - start row shift
      * @return bool - returns false if error, true if ok
      */
-    abstract public function delete(\Rt\Storage\StorageObject &$table, \Rt\Storage\QueryWhere &$where = NULL, \Rt\Storage\QueryOrder &$order = NULL, $limit = NULL, $start = NULL);
+    abstract public function delete(\Rt\Storage\StorageObject $table, \Rt\Storage\QueryWhere $where = NULL, \Rt\Storage\QueryOrder $order = NULL, $limit = NULL, $start = NULL);
 
     /**
      *
@@ -123,7 +123,7 @@ abstract class AbstractDriver {
      * @param unknown_type $val - value
      * @return \Rt\Storage\QueryWhere - query part
      */
-    abstract public function &where($val);
+    abstract public function where($val);
 
     /**
      *
@@ -131,7 +131,7 @@ abstract class AbstractDriver {
      * @param unknown_type $val - value
      * @return \Rt\Storage\QueryGroup - query group part
      */
-    abstract public function &group($val);
+    abstract public function group($val);
 
     /**
      *
@@ -146,7 +146,7 @@ abstract class AbstractDriver {
      * @param string $aggregate aggregate function
      * @return \Rt\Storage\QueryOrder - query order part
      */
-    abstract public function &order($val, $order = true, $aggregate = NULL);
+    abstract public function order($val, $order = true, $aggregate = NULL);
 
     /**
      *
@@ -154,7 +154,7 @@ abstract class AbstractDriver {
      * @param \Rt\Storage\StorageObject $obj - table
      * @return \Rt\Storage\QueryJoin - query join part
      */
-    abstract public function &noJoin(\Rt\Storage\StorageObject &$obj);
+    abstract public function noJoin(\Rt\Storage\StorageObject $obj);
 
 
     /**

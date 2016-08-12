@@ -74,7 +74,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::select()
      */
-    public function select($outType, $subquery, \Rt\Storage\QueryJoin &$from, \Rt\Storage\QueryWhere &$where = NULL, \Rt\Storage\QueryGroup &$group = NULL, \Rt\Storage\QueryOrder &$order = NULL, $limit = NULL, $start = NULL)
+    public function select($outType, $subquery, \Rt\Storage\QueryJoin $from, \Rt\Storage\QueryWhere $where = NULL, \Rt\Storage\QueryGroup $group = NULL, \Rt\Storage\QueryOrder $order = NULL, $limit = NULL, $start = NULL)
     {
         $query = "SELECT ";
         if($subquery)
@@ -125,7 +125,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::insert()
      */
-    public function insert(\Rt\Storage\StorageObject &$table)
+    public function insert(\Rt\Storage\StorageObject $table)
     {
         $query = "INSERT INTO \"".$table->table()."\"";
         $params = "";
@@ -151,7 +151,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::update()
      */
-    public function update(\Rt\Storage\StorageObject &$table, \Rt\Storage\QueryWhere &$where = NULL, \Rt\Storage\QueryOrder &$order = NULL, $limit = NULL, $start = NULL)
+    public function update(\Rt\Storage\StorageObject $table, \Rt\Storage\QueryWhere $where = NULL, \Rt\Storage\QueryOrder $order = NULL, $limit = NULL, $start = NULL)
     {
         $query = "UPDATE \"".$table->table()."\" SET ";
         $first = true;
@@ -189,7 +189,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::delete()
      */
-    public function delete(\Rt\Storage\StorageObject &$table, \Rt\Storage\QueryWhere &$where = NULL, \Rt\Storage\QueryOrder &$order = NULL, $limit = NULL, $start = NULL)
+    public function delete(\Rt\Storage\StorageObject $table, \Rt\Storage\QueryWhere $where = NULL, \Rt\Storage\QueryOrder $order = NULL, $limit = NULL, $start = NULL)
     {
         $query = "DELETE FROM \"".$table->table()."\"";
         if($where != NULL)
@@ -213,7 +213,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::where()
      */
-    public function &where($val)
+    public function where($val)
     {
         $some = new \Rt\Storage\QueryWhere($val);
         return $some;
@@ -223,7 +223,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::group()
      */
-    public function &group($val)
+    public function group($val)
     {
         $some = new \Rt\Storage\QueryGroup($val);
         return $some;
@@ -233,7 +233,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::order()
      */
-    public function &order($val, $order = true, $aggregate = NULL)
+    public function order($val, $order = true, $aggregate = NULL)
     {
         $some = new \Rt\Storage\QueryOrder($val, $order, $aggregate);
         return $some;
@@ -243,7 +243,7 @@ class Driver extends \Rt\Storage\AbstractDriver {
      * (non-PHPdoc)
      * @see Rt\Storage.AbstractDriver::noJoin()
      */
-    public function &noJoin(\Rt\Storage\StorageObject &$obj)
+    public function noJoin(\Rt\Storage\StorageObject $obj)
     {
         $some = new \Rt\Storage\QueryJoin($obj);
         return $some;

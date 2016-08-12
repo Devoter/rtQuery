@@ -10,7 +10,7 @@ class QueryWhere {
             $this->_query .= $val;
     }
     
-    public function &aand($val = NULL)
+    public function aand($val = NULL)
     {
         $this->_query .= " AND ";
         if($val != NULL)
@@ -18,7 +18,7 @@ class QueryWhere {
         return $this;
     }
     
-    public function &aor($val = NULL)
+    public function aor($val = NULL)
     {
         $this->_query .= " OR ";
         if($val != NULL)
@@ -26,7 +26,7 @@ class QueryWhere {
         return $this;
     }
     
-    public function &axor($val = NULL)
+    public function axor($val = NULL)
     {
         $this->_query .= " XOR ";
         if($val != NULL)
@@ -34,19 +34,19 @@ class QueryWhere {
         return $this;
     }
     
-    public function &equals($val)
+    public function equals($val)
     {
         $this->_query .= " = ".$val;
         return $this;
     }
     
-    public function &abeg($val)
+    public function abeg($val)
     {
         $this->_query .= " ( ".$val;
         return $this;
     }
     
-    public function &aend()
+    public function aend()
     {
         $this->_query .= " ) ";
         return $this;

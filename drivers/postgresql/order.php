@@ -13,7 +13,7 @@ class QueryOrder {
         $this->_query = " ".$rval." ".($order ? "ASC" : "DESC");
     }
 
-    public function &order($val, $order = true, $aggregate = NULL)
+    public function order($val, $order = true, $aggregate = NULL)
     {
         $agr = $this->_checkAggregate($aggregate);
         if($agr != NULL)
